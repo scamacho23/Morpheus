@@ -10,7 +10,7 @@ BINARY_LOCAL_DIRECTORY=/usr/local/Morpheus/bin
 
 BINARY_LOCAL_PATH=/usr/local/Morpheus/morph
 
-INSTALL_LINK=https://raw.githubusercontent.com/scamacho23/morpheus/master/install.sh
+INSTALL_LINK=https://github.com/scamacho23/morpheus
 
 
 # Create the Morpheus directory in /usr/local
