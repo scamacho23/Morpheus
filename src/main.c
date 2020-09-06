@@ -4,8 +4,14 @@
 #include <dirent.h>
 
 
+
+void update() {
+	system("/bin/bash /usr/local/Morpheus/scripts/update.sh");
+}
+
+
 void listInstallations() {
-	char* dirName = "/usr/local/Morpheus/installed";
+	char* dirName = "/usr/local/Matrix";
 	DIR* directory;
 	struct dirent* dir;
 	directory = opendir(dirName);
@@ -37,14 +43,20 @@ void listInstallations() {
 }
 
 
-
+void morpheusBasic() {
+	printf("Welcome to the Matrix, Neo"\n);
+}
 
 int main(int argc, char* argv[]) {
 	if (argc == 1) {
-		printf("Well hello there! I'm Morpheus!\n");		
+		morpheusBasic();
 		return 0;
 	}
-	if (strcmp(argv[1], "list") == 0) listInstallations();
+
+	char* command = argv[1];
+
+	if (strcmp(command, "list") == 0) listInstallations();
+	if (strcmp(command, "update") == 0) update();
 
 	return 0;
 	
