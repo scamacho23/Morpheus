@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
-# MORPHEUS_PREFIX="/usr/local"
+MORPHEUS_PREFIX=/usr/local
 
 MORPHEUS_REPOSITORY=/usr/local/Morpheus
 
 MORPH_REPO=https://github.com/scamacho23/Morpheus
 
-INSTALLED_DIRECTORY=/usr/local/Morpheus/Matrix
+INSTALLED_DIRECTORY=/usr/local/Matrix
 
 BINARY_SYM_PATH=/usr/local/bin/morph
 
@@ -48,16 +48,15 @@ echo "$BINARY_SYM_PATH" -- as a symlink
 # tty_reset="$(tty_escape 0)"
 
 
+cd "$MORPHEUS_PREFIX" || exit
+
 # Create the Morpheus directory in /usr/local
 if [ ! -d "$MORPHEUS_DIRECTORY" ]; then
-    echo Creating Morpheus directory in /usr/local...
-    mkdir "$MORPHEUS_DIRECTORY"
+    echo Cloning Morpheus directory in /usr/local...
+    git clone "$MORPH_REPO"
 fi
 
 cd "$MORPHEUS_DIRECTORY" || exit
-
-echo Cloning morpheus git repo in /usr/local/Morpheus...
-git clone "$MORPH_REPO"
 
 # Create the installed directory in /usr/local
 if [ ! -d "$INSTALLED_DIRECTORY" ]; then
