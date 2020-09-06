@@ -4,7 +4,7 @@
 
 MORPHEUS_REPOSITORY="/usr/local/Morpheus"
 
-MORPH_REPO="https://github.com/scamacho23/morpheus"
+MORPH_REPO=https://github.com/scamacho23/morpheus
 
 INSTALLED_DIRECTORY="/usr/local/Matrix"
 
@@ -51,7 +51,7 @@ tty_mkbold() { tty_escape "1;$1"; }
 # Create the Morpheus directory in /usr/local
 if [ ! -d "${MORPHEUS_DIRECTORY}" ]; then
     echo Cloning Morpheus directory in /usr/local...
-    git clone "${MORPH_REPO}"
+    git clone "$MORPH_REPO"
 fi
 
 cd "$MORPHEUS_DIRECTORY" || exit
