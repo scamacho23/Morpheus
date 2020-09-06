@@ -78,11 +78,11 @@ else
         mkdir "$BINARY_LOCAL_DIRECTORY"
     fi
     # compile morpheus
-    ./configure
+    "$MORPHEUS_REPO"/configure
     make
     # move the compiled version to /usr/local/Morpheus
-    mv "morph" "$BINARY_LOCAL_PATH" 
-    echo ymlinking morph into /usr/local/bin...
+    mv "$MORPHEUS_REPO"/morph "$BINARY_LOCAL_PATH" 
+    echo linking morph into /usr/local/bin...
     ln -s "$BINARY_LOCAL_PATH" "${BINARY_SYM_PATH}"
 fi
 
