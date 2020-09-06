@@ -6,13 +6,13 @@ MORPHEUS_REPOSITORY=/usr/local/Morpheus
 
 MORPH_REPO=https://github.com/scamacho23/Morpheus
 
-INSTALLED_DIRECTORY="/usr/local/Matrix"
+INSTALLED_DIRECTORY=/usr/local/Morpheus/Matrix
 
-BINARY_SYM_PATH="/usr/local/bin/morph"
+BINARY_SYM_PATH=/usr/local/bin/morph
 
-BINARY_LOCAL_DIRECTORY="/usr/local/Morpheus/bin"
+BINARY_LOCAL_DIRECTORY=/usr/local/Morpheus/bin
 
-BINARY_LOCAL_PATH="/usr/local/Morpheus/bin/morph"
+BINARY_LOCAL_PATH=/usr/local/Morpheus/bin/morph
 
 
 if ! command -v git >/dev/null; then
@@ -26,21 +26,21 @@ if ! command -v curl >/dev/null; then
 fi
 
 echo This installation script will install a few directories and files which Morpheus requires to function properly:
-echo "${MORPHEUS_REPOSITORY}"
-echo "${INSTALLED_DIRECTORY}"
-echo "${BINARY_LOCAL_DIRECTORY}"
-echo "${BINARY_LOCAL_PATH}"
-echo "${BINARY_SYM_PATH}" -- as a symlink
+echo "$MORPHEUS_REPOSITORY"
+echo "$INSTALLED_DIRECTORY"
+echo "$BINARY_LOCAL_DIRECTORY"
+echo "$BINARY_LOCAL_PATH"
+echo "$BINARY_SYM_PATH" -- as a symlink
 
 
 # string formatters taken from homebrew installation script
 # TODO: add string formatting
-if [ -t 1 ]; then
-  tty_escape() { printf "\033[%sm" "$1"; }
-else
-  tty_escape() { :; }
-fi
-tty_mkbold() { tty_escape "1;$1"; }
+# if [ -t 1 ]; then
+#  tty_escape()  printf "\033[%sm" "$1"; 
+# else
+#  tty_escape()  :; 
+# fi
+# tty_mkbold()  tty_escape "1;$1"; 
 # tty_underline=(tty_escape "4;39")
 # tty_blue="$(tty_mkbold 34)"
 # tty_red="$(tty_mkbold 31)"
@@ -49,39 +49,42 @@ tty_mkbold() { tty_escape "1;$1"; }
 
 
 # Create the Morpheus directory in /usr/local
-if [ ! -d "${MORPHEUS_DIRECTORY}" ]; then
-    echo Cloning Morpheus directory in /usr/local...
-    git clone "$MORPH_REPO" "$MORPHEUS_REPO"
+if [ ! -d "$MORPHEUS_DIRECTORY" ]; then
+    echo Creating Morpheus directory in /usr/local...
+    mkdir "$MORPHEUS_DIRECTORY"
 fi
 
 cd "$MORPHEUS_DIRECTORY" || exit
 
+echo Cloning morpheus git repo in /usr/local/Morpheus...
+git clone "$MORPH_REPO"
+
 # Create the installed directory in /usr/local
-if [ ! -d "${INSTALLED_DIRECTORY}" ]; then
+if [ ! -d "$INSTALLED_DIRECTORY" ]; then
     echo Creating Matrix directory in /usr/local...
     echo \'Matrix\' is where your upgrades live \(upgrades are what we call your installed packages\)
-    mkdir "${INSTALLED_DIRECTORY}"
+    mkdir "$INSTALLED_DIRECTORY"
 fi
 
 # Compile morpheus and add the binary to /usr/local/bin
-if [ -f "${BINARY_SYM_PATH}" ]; then
+if [ -f "$BINARY_SYM_PATH" ]; then
     # exit if the binary is already installed
     echo You seem to already have Morpheus installed on your system. Exiting...
     exit
 else
     echo Building morph...
     # Create local bin to hold morph executable
-    if [ ! -d "${BINARY_LOCAL_DIRECTORY}" ]; then
+    if [ ! -d "$BINARY_LOCAL_DIRECTORY" ]; then
         echo Creating bin in /usr/local/Morpheus...
-        mkdir "${BINARY_LOCAL_DIRECTORY}"
+        mkdir "$BINARY_LOCAL_DIRECTORY"
     fi
     # compile morpheus
     ./configure
     make
     # move the compiled version to /usr/local/Morpheus
-    mv "morph" "${BINARY_LOCAL_PATH}" 
+    mv "morph" "$BINARY_LOCAL_PATH" 
     echo ymlinking morph into /usr/local/bin...
-    ln -s "${BINARY_LOCAL_PATH}" "${BINARY_SYM_PATH}"
+    ln -s "$BINARY_LOCAL_PATH" "${BINARY_SYM_PATH}"
 fi
 
 cd ~ || exit
