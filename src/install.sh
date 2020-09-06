@@ -30,7 +30,7 @@ echo "${MORPHEUS_REPOSITORY}"
 echo "${INSTALLED_DIRECTORY}"
 echo "${BINARY_LOCAL_DIRECTORY}"
 echo "${BINARY_LOCAL_PATH}"
-echo "${BINARY_SYM_PATH}" -- as a symlink
+echo "${BINARY_SYM_PATH}" -- as a symlink\n
 
 
 # string formatters taken from homebrew installation script
@@ -49,38 +49,39 @@ tty_underline=(tty_escape "4;39")
 
 
 # Create the Morpheus directory in /usr/local
-if [ ! -d "$MORPHEUS_DIRECTORY" ]; then
+if [ ! -d "${MORPHEUS_DIRECTORY}" ]; then
     echo Cloning Morpheus directory in /usr/local...
-    git clone "$INSTALL_LINK" "$MORPHEUS_DIRECTORY"
+    git clone "${MORPH_REPO}" "${MORPHEUS_DIRECTORY}"
 fi
 
 cd "$MORPHEUS_DIRECTORY" || exit
 
 # Create the installed directory in /usr/local
-if [ ! -d "$INSTALLED_DIRECTORY" ]; then
+if [ ! -d "${INSTALLED_DIRECTORY}" ]; then
     echo Creating Matrix directory in /usr/local...
     echo \'Matrix\' is where your upgrades live \(upgrades are what we call your installed packages\)
-    mkdir "$INSTALLED_DIRECTORY"
+    mkdir "${INSTALLED_DIRECTORY}"
 fi
 
 # Compile morpheus and add the binary to /usr/local/bin
-if [ -f "$BINARY_SYM_PATH" ]; then
+if [ -f "${BINARY_SYM_PATH}" ]; then
     # exit if the binary is already installed
     echo You seem to already have Morpheus installed on your system. Exiting...
     exit
 else
-    echo Building morph...
+    echo Building morph...\n
     # Create local bin to hold morph executable
-    if [ ! -d "$BINARY_LOCAL_DIRECTORY" ]; then
+    if [ ! -d "${BINARY_LOCAL_DIRECTORY}" ]; then
         echo Creating bin in /usr/local/Morpheus...
-        mkdir "$BINARY_LOCAL_DIRECTORY"
+        mkdir "${BINARY_LOCAL_DIRECTORY}"
     fi
     # compile morpheus
+    ./configure
     make
     # move the compiled version to /usr/local/Morpheus
-    mv "morph" "$BINARY_LOCAL_PATH" 
+    mv "morph" "${BINARY_LOCAL_PATH}" 
     echo ymlinking morph into /usr/local/bin...
-    ln -s "$BINARY_LOCAL_PATH" "$BINARY_SYM_PATH"
+    ln -s "${BINARY_LOCAL_PATH}" "${BINARY_SYM_PATH}"
 fi
 
 cd ~ || exit
