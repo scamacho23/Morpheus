@@ -12,8 +12,11 @@ BINARY_SYM_PATH=/usr/local/bin/morph
 
 BINARY_LOCAL_DIRECTORY=/usr/local/Morpheus/bin
 
+MORPH_INITIAL_PATH=/usr/local/Morpheus/morph
+
 BINARY_LOCAL_PATH=/usr/local/Morpheus/bin/morph
 
+CONFIGURE_PATH=/usr/local/Morpheus/configure
 
 if ! command -v git >/dev/null; then
     echo Morpheus requires git to function properly. Please install git.
@@ -56,8 +59,6 @@ if [ ! -d "$MORPHEUS_DIRECTORY" ]; then
     git clone "$MORPH_REPO"
 fi
 
-cd "$MORPHEUS_DIRECTORY" || exit
-
 # Create the installed directory in /usr/local
 if [ ! -d "$INSTALLED_DIRECTORY" ]; then
     echo Creating Matrix directory in /usr/local...
@@ -78,11 +79,12 @@ else
     fi
     # compile morpheus
     echo Building morph...
-    $MORPHEUS_REPO/configure
-    make
+    $CONFIGURE_PATH
+    cd "$MORPHEUS_DIRECTORY" && make
     # move the compiled version to /usr/local/Morpheus
-    mv "$MORPHEUS_REPO"/morph "$BINARY_LOCAL_PATH" 
-    echo linking morph into /usr/local/bin...
+    echo Moving morph to /usr/local/Morpheus/bin
+    mv "$MORPH_INITIAL_PATH" "$BINARY_LOCAL_PATH" 
+    echo Linking morph into /usr/local/bin...
     ln -s "$BINARY_LOCAL_PATH" "${BINARY_SYM_PATH}"
 fi
 
