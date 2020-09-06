@@ -72,23 +72,8 @@ if [ -f "$BINARY_SYM_PATH" ]; then
     echo You seem to already have Morpheus installed on your system. Exiting...
     exit
 else
-    # Create local bin to hold morph executable
-    if [ ! -d "$BINARY_LOCAL_DIRECTORY" ]; then
-        echo Creating bin in /usr/local/Morpheus...
-        mkdir "$BINARY_LOCAL_DIRECTORY"
-    fi
-    # compile morpheus
-    echo Building morph...
-    $CONFIGURE_PATH
-    cd "$MORPHEUS_DIRECTORY" && make
-    # move the compiled version to /usr/local/Morpheus
-    echo Moving morph to /usr/local/Morpheus/bin
-    mv "$MORPH_INITIAL_PATH" "$BINARY_LOCAL_PATH" 
+    # create a symlink of of morph in /usr/local/bin
     echo Linking morph into /usr/local/bin...
-    ln -s "$BINARY_LOCAL_PATH" "${BINARY_SYM_PATH}"
+    ln -s "$BINARY_LOCAL_PATH" "$BINARY_SYM_PATH"
 fi
-
-cd ~ || exit
-
-
 
