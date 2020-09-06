@@ -4,7 +4,7 @@
 
 MORPHEUS_REPOSITORY="/usr/local/Morpheus"
 
-MORPH_REPO=https://github.com/scamacho23/morpheus
+MORPH_REPO=https://github.com/scamacho23/Morpheus
 
 INSTALLED_DIRECTORY="/usr/local/Matrix"
 
