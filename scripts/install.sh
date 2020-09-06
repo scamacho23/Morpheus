@@ -6,7 +6,7 @@ MORPHEUS_REPOSITORY=/usr/local/Morpheus
 
 MORPH_REPO=https://github.com/scamacho23/Morpheus
 
-INSTALLED_DIRECTORY=/usr/local/Matrix
+MATRIX_DIRECTORY=/usr/local/Matrix
 
 BINARY_SYM_PATH=/usr/local/bin/morph
 
@@ -54,17 +54,20 @@ echo "$BINARY_SYM_PATH" -- as a symlink
 cd "$MORPHEUS_PREFIX" || exit
 
 # Create the Morpheus directory in /usr/local
-if [ ! -d "$MORPHEUS_DIRECTORY" ]; then
-    echo Cloning Morpheus directory in /usr/local...
+if [ ! -d "$MORPHEUS_REPOSITORY" ]; then
     git clone "$MORPH_REPO"
 fi
 
 # Create the installed directory in /usr/local
-if [ ! -d "$INSTALLED_DIRECTORY" ]; then
+if [ ! -d "$MATRIX_DIRECTORY" ]; then
     echo Creating Matrix directory in /usr/local...
     echo \'Matrix\' is where your upgrades live \(upgrades are what we call your installed packages\)
-    mkdir "$INSTALLED_DIRECTORY"
+    mkdir "$MATRIX_DIRECTORY"
 fi
+
+# Give the user permissions over installed directories and files
+chown -R "$USER" "$MORPHEUS_REPOSITORY"
+chown -R "$USER" "$MATRIX_DIRECTORY"
 
 # Compile morpheus and add the binary to /usr/local/bin
 if [ -f "$BINARY_SYM_PATH" ]; then
