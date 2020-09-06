@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-MORPHEUS_PREFIX="/usr/local"
+# MORPHEUS_PREFIX="/usr/local"
 
 MORPHEUS_REPOSITORY="/usr/local/Morpheus"
 
@@ -30,7 +30,7 @@ echo "${MORPHEUS_REPOSITORY}"
 echo "${INSTALLED_DIRECTORY}"
 echo "${BINARY_LOCAL_DIRECTORY}"
 echo "${BINARY_LOCAL_PATH}"
-echo "${BINARY_SYM_PATH}" -- as a symlink\n
+echo "${BINARY_SYM_PATH}" -- as a symlink
 
 
 # string formatters taken from homebrew installation script
@@ -41,7 +41,7 @@ else
   tty_escape() { :; }
 fi
 tty_mkbold() { tty_escape "1;$1"; }
-tty_underline=(tty_escape "4;39")
+# tty_underline=(tty_escape "4;39")
 # tty_blue="$(tty_mkbold 34)"
 # tty_red="$(tty_mkbold 31)"
 # tty_bold="$(tty_mkbold 39)"
@@ -51,7 +51,7 @@ tty_underline=(tty_escape "4;39")
 # Create the Morpheus directory in /usr/local
 if [ ! -d "${MORPHEUS_DIRECTORY}" ]; then
     echo Cloning Morpheus directory in /usr/local...
-    git clone "${MORPH_REPO}" "${MORPHEUS_DIRECTORY}"
+    git clone "${MORPH_REPO}"
 fi
 
 cd "$MORPHEUS_DIRECTORY" || exit
@@ -69,7 +69,7 @@ if [ -f "${BINARY_SYM_PATH}" ]; then
     echo You seem to already have Morpheus installed on your system. Exiting...
     exit
 else
-    echo Building morph...\n
+    echo Building morph...
     # Create local bin to hold morph executable
     if [ ! -d "${BINARY_LOCAL_DIRECTORY}" ]; then
         echo Creating bin in /usr/local/Morpheus...
