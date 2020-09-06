@@ -6,7 +6,7 @@
 
 
 void update() {
-	system("/bin/bash /usr/local/Morpheus/scripts/update.sh");
+	system("sudo /bin/bash /usr/local/Morpheus/scripts/update.sh");
 }
 
 
@@ -44,7 +44,7 @@ void listInstallations() {
 
 
 void morpheusBasic() {
-	printf("Welcome to the Matrix, Neo"\n);
+	printf("Welcome to the Matrix, Neo\n");
 }
 
 int main(int argc, char* argv[]) {
